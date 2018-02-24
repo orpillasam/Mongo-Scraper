@@ -49,7 +49,7 @@ $(document).ready(function() {
           "<div class='panel panel-default'>",
           "<div class='panel-heading'>",
           "<h3>",
-          "<a class='article-link' target='_blank' href='" + article.link + "'>",
+          "<a class='article-link' target='_blank' href='www.espn.com" + article.link + "'>",
           article.title,
           "</a>",
           "<a class='btn btn-success save'>",
@@ -102,7 +102,7 @@ $(document).ready(function() {
       // Using a patch method to be semantic since this is an update to an existing record in our collection
       $.ajax({
         method: "PUT",
-        url: "/api/headlines",
+        url: "/api/articles",
         data: articleToSave
       }).then(function(data) {
         // If successful, mongoose will send back an object containing a key of "ok" with the value of 1
@@ -116,7 +116,7 @@ $(document).ready(function() {
   
     function handleArticleScrape() {
       // This function handles the user clicking any "scrape new article" buttons
-      $.get("/api/fetch").then(function(data) {
+      $.get("/api/scrape").then(function(data) {
         // If we are able to succesfully scrape the NYTIMES and compare the articles to those
         // already in our collection, re render the articles on the page
         // and let the user know how many unique articles we were able to save
