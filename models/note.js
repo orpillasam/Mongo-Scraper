@@ -7,18 +7,17 @@ const Schema = mongoose.Schema;
 // This is similar to a Sequelize model
 const NoteSchema = new Schema({
   // `title` must be of type String
-  title: {
-    type: String
-    },
-
-  body: {
-      type: String
-  }
+  headlineId: {
+    type: Schema.Types.ObjectId,
+    ref: "Headline" 
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  },
+  noteText: String
 });
 
+var Note = mongoose.model("Note", noteSchema);
 
-// This creates our model from the above schema, using mongoose's model method
-var Note = mongoose.model("Note", NoteSchema);
-
-// Export the Note model
 module.exports = Note;

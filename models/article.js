@@ -19,7 +19,16 @@ const ArticleSchema = new Schema({
   link: {
       type: String,
       required: true
-      }
+      },
+        // date is just a string
+  date: {
+    type: Date,
+    default: Date.now
+  },
+  saved: {
+    type: Boolean,
+    default: false
+  }
 });
 
 // This creates our model from the above schema, using mongoose's model method
