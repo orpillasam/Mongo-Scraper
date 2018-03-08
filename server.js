@@ -9,14 +9,16 @@ const axios = require("axios");
 
 const PORT = process.env.PORT || 8083;
 
-// const db = require("./models");
-
 const app = express();
 
 const db = require("./models");
 
-app.use(bodyParser.urlencoded({ extended: false}));
+// Use bodyParser in our app
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static("public"));
+
+app.use(routes);
 
 require("./routes/html-routes.js")(app);
 require("./routes/articles-routes.js")(app);
@@ -64,8 +66,7 @@ app.get("/api/scrape", function(req, res) {
         result.link = $(this)
           .children("a")
           .attr("href");
-  
-        // Create a new Article using the `result` object built from scraping
+
         db.Article.create(result)
           .then(function(dbArticle) {
             // View the added result in the console
@@ -76,12 +77,10 @@ app.get("/api/scrape", function(req, res) {
             return res.json(err);
           });
       });
-    // If we were able to successfully scrape and save an Article, send a message to the client
+
     res.send("Scrape Complete");
   });
 });
-
-
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
